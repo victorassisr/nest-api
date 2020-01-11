@@ -1,19 +1,19 @@
 import { Controller, Get, Param, Body, Post, Put, Delete, HttpException, HttpStatus, Res } from '@nestjs/common';
-import { Login } from '../models/login.model';
-import { LoginService } from '../services/login.service';
+import { ClientModel } from 'src/models/client.model';
+import { AuthService } from '../services/auth.service';
 import { Response } from 'express';
 
-@Controller('v1/login')
-export class LoginController{
+@Controller('v1/auth')
+export class AuthController{
 
     constructor(
-        private loginService: LoginService
+        private _authService: AuthService
     ){}
 
     @Post()
-    login(@Body() model: Login, @Res() res: Response){
+    login(@Body() model: ClientModel, @Res() res: Response){
         try{
-            const response = this.loginService.doLogin(model);
+            const response = this._authService.doLogin(model);
             if(response['error']){
                 throw new Error(response['error']);
             }
