@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Body, Post, Put, Delete, HttpException, HttpStatus, Res } from '@nestjs/common';
-import { ClientModel } from 'src/models/client.model';
+import { UserModel } from 'src/models/user.model';
 import { AuthService } from '../services/auth.service';
 import { Response } from 'express';
 
@@ -11,15 +11,18 @@ export class AuthController{
     ){}
 
     @Post()
-    login(@Body() model: ClientModel, @Res() res: Response){
+    login(@Body() model: UserModel, @Res() res: Response){
         try{
             const response = this._authService.doLogin(model);
             if(response['error']){
                 throw new Error(response['error']);
             }
             return res.status(HttpStatus.OK).send(response);
-        }catch(erro){
-            throw new HttpException({msg: erro.message},HttpStatus.BAD_REQUEST);
+        }catch(error){
+            throw new HttpException(
+                { msg: error.message },
+                HttpStatus.BAD_REQUEST
+            );
         }
     }
 }

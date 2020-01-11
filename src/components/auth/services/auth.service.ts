@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
-import { ClientModel } from "src/models/client.model";
+import { UserModel } from 'src/models/user.model';
 
 @Injectable()
 export class AuthService{
-    doLogin(model: ClientModel): object{
+    doLogin(model: UserModel): object{
         
-        /*if(!model.email || !model.password){
+        if(!model.email || !model.password){
             return { error: 'Invalid email or password.' };
         }
         if(model.email != 'a@a.com'){
@@ -13,8 +13,8 @@ export class AuthService{
         }
         if(model.password != '123456'){
             return { error: 'Invalid password.' };
-        }*/
+        }
 
-        return { success: 'Right email and password.' };;
+        return { success:  model };
     }
 }
